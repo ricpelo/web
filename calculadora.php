@@ -1,3 +1,10 @@
+<?php
+/**
+ * @author Ricardo Pérez <ricardo@iesdonana.org>
+ * @copyright Copyright (c) 2023 Ricardo Pérez
+ * @license https://www.gnu.org/licenses/gpl.txt
+ */
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,20 +23,22 @@
     $op  = obtener_get('op');
     ?>
 
-    <form action="calculadora.php" method="get">
+    <form action="" method="get">
         <label for="op1">Operando 1:</label>
         <input type="text" name="op1" id="op1" value="<?= $op1 ?>"><br>
         <label for="op2">Operando 2:</label>
         <input type="text" name="op2" id="op2" value="<?= $op2 ?>"><br>
         <label for="op">Operación:</label>
         <select name="op" id="op">
-            <option value="+" <?= selected('+', $op) ?>>+</option>
-            <option value="-" <?= selected('-', $op) ?>>-</option>
-            <option value="*" <?= selected('*', $op) ?>>*</option>
-            <option value="/" <?= selected('/', $op) ?>>/</option>
+            <?php foreach (OPS as $oper): ?>
+                <option value="<?= $oper ?>" <?= selected($oper, $op) ?>>
+                    <?= $oper ?>
+                </option>
+            <?php endforeach ?>
         </select><br>
         <button type="submit">Calcular</button>
     </form>
+
     <?php
     $errores = [];
 
