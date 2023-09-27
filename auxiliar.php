@@ -54,7 +54,7 @@ function comprobar_op($op, &$errores)
 
 function comprobar_division_cero($op2, $op, &$errores)
 {
-    if (isset($op2, $op) && $op2 == 0 && $op == '/') {
+    if ($op2 == 0 && $op == '/') {
         $errores[] = 'No se puede dividir entre cero.';
     }
 }
@@ -64,5 +64,15 @@ function mostrar_resultado($res)
     ?>
     El <strong>resultado</strong> es <strong><?= $res ?></strong>
     <?php
+}
+
+function obtener_get($par)
+{
+    return isset($_GET[$par]) ? $_GET[$par] : null;
+}
+
+function selected($option, $op)
+{
+    return $option == $op ? 'selected' : '';
 }
 ?>
