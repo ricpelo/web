@@ -60,11 +60,11 @@ function mostrar_errores(array $errores): void
  * Comprobar el primer operando. Modifica el array de errores en caso de
  * encontrar algún error de validación.
  *
- * @param  int|float $op1     El primer operando
- * @param  array     $errores El array de errores (mutable)
+ * @param  mixed $op1     El primer operando
+ * @param  array $errores El array de errores (mutable)
  * @return void
  */
-function comprobar_op1(int|float $op1, array &$errores): void
+function comprobar_op1(mixed $op1, array &$errores): void
 {
     if (!is_numeric($op1)) {
         $errores[] = 'El primer operando es incorrecto.';
