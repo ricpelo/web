@@ -18,9 +18,7 @@
     <?php
     require 'auxiliar.php';
 
-    $op1 = obtener_get('op1');
-    $op2 = obtener_get('op2');
-    $op  = obtener_get('op');
+    extract(obtener());
     ?>
 
     <form action="" method="get">

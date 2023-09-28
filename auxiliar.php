@@ -105,6 +105,14 @@ function mostrar_resultado(int|float $res): void
     <?php
 }
 
+function obtener()
+{
+    $op1 = obtener_get('op1');
+    $op2 = obtener_get('op2');
+    $op  = obtener_get('op');
+    return compact('op1', 'op2', 'op');
+}
+
 function obtener_get($par)
 {
     return isset($_GET[$par]) ? trim($_GET[$par]) : null;
