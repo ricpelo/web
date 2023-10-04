@@ -7,6 +7,12 @@
 </head>
 <body>
     <?php
+    try {
+        echo 1/0;
+    } catch (DivisionByZeroError $e) {
+        echo "Error: " . $e->getMessage();
+    }
+
     const MESES = [
         1 => 'enero',
         'febrero',
@@ -22,6 +28,19 @@
         'diciembre',
     ];
     $anyo_actual = (int) date('Y');
+
+    $dia = isset($_GET['dia']) ? trim($_GET['dia']) : null;
+    $mes = isset($_GET['mes']) ? trim($_GET['mes']) : null;
+    $anyo = isset($_GET['anyo']) ? trim($_GET['anyo']) : null;
+
+    if (checkdate($mes, $dia, $anyo)):
+        $fecha_nac = DateTime::createFromFormat('j-n-Y', "$dia-$mes-$anyo");
+        $fecha_act = new DateTime();
+        $diferencia = $fecha_nac->diff($fecha_act);
+    else: ?>
+        <h3>Error: fecha incorrecta.</h3>
+    <?php
+    endif;
     ?>
     <form action="" method="get">
         <label for="dia">Fecha de nacimiento:</label>
@@ -43,5 +62,8 @@
         <br>
         <button type="submit">Calcular</button>
     </form>
+    <?php if (isset($diferencia)): ?>
+        La persona tiene <?= $diferencia->y ?> años.
+    <?php endif ?>
 </body>
 </html>
