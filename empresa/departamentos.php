@@ -14,6 +14,7 @@
             <th>Código</th>
             <th>Denominación</th>
             <th>Localidad</th>
+            <th>Acciones</th>
         </thead>
         <tbody>
             <?php foreach ($sent as $fila): ?>
@@ -21,6 +22,7 @@
                     <td><?= $fila['codigo'] ?></td>
                     <td><?= $fila['denominacion'] ?></td>
                     <td><?= $fila['localidad'] ?></td>
+                    <td><a href="borrar.php?id=<?= $fila['id'] ?>">Borrar</a></td>
                 </tr>
             <?php endforeach ?>
         </tbody>
@@ -51,6 +53,7 @@
         <input type="text" name="codigo" id="codigo" value="<?= $codigo ?>">
         <button type="submit">Buscar</button>
     </form>
+    <br>
     <?php
     if ($codigo == '') {
         $sent = $pdo->query('SELECT * FROM departamentos');
