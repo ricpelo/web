@@ -15,3 +15,8 @@ function buscar_departamento_por_id($id, ?PDO $pdo = null)
     $sent->execute([':id' => $id]);
     return $sent->fetch();
 }
+
+function volver_departamentos()
+{
+    header('Location: departamentos.php');
+}
