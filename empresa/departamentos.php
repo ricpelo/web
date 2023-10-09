@@ -7,6 +7,8 @@
 </head>
 <body>
     <?php
+    require 'auxiliar.php';
+
     function mostrar_tabla(PDOStatement $sent)
     { ?>
         <table border="1">
@@ -45,7 +47,7 @@
         return $sent->fetchColumn();
     }
 
-    $pdo = new PDO('pgsql:host=localhost;dbname=empresa', 'empresa', 'empresa');
+    $pdo = conectar();
     $codigo = isset($_GET['codigo']) ? trim($_GET['codigo']) : '';
     ?>
     <form action="" method="get">

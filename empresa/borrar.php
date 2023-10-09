@@ -14,6 +14,11 @@
         return;
     }
     ?>
-    <?= $id ?>
+    <p>¿Está seguro de que quiere borrar ese departamento?</p>
+    <form action="hacer_borrado.php" method="post">
+        <input type="hidden" name="id" value="<?= $id ?>">
+        <button type="submit">Sí</button>
+        <a href="departamentos.php">Volver</a>
+    </form>
 </body>
 </html>
