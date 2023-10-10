@@ -37,7 +37,7 @@ function obtener_post(string $par): ?string
     return isset($_POST[$par]) ? trim($_POST[$par]) : null;
 }
 
-function comprobar_codigo($codigo, &$errores, ?PDO $pdo = null)
+function comprobar_codigo($codigo, &$errores, ?PDO $pdo = null, $id = null)
 {
     if ($codigo == '') {
         $errores[] = 'El código no puede ser vacío';
@@ -50,8 +50,11 @@ function comprobar_codigo($codigo, &$errores, ?PDO $pdo = null)
         $errores[] = 'El código tiene un formato incorrecto';
     }
     if (empty($errores)) {
-        if (buscar_departamento_por_codigo($codigo, $pdo)) {
-            $errores[] = 'Ya existe un departamento con ese código';
+        $departamento = buscar_departamento_por_codigo($codigo, $pdo);
+        if ($departamento) {
+            if ($id == null || ($id != null && $departamento['id'] != $id)) {
+                $errores[] = 'Ya existe un departamento con ese código';
+            }
         }
     }
 }

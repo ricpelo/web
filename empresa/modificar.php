@@ -3,13 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insertar un nuevo departamento</title>
+    <title>Modificar un departamento</title>
 </head>
 <body>
     <?php
     require 'auxiliar.php';
 
-    $codigo = $denominacion = $localidad = null;
+    if (!isset($_GET['id'])) {
+        return volver_departamentos();
+    }
+
+    $id = trim($_GET['id']);
+    $pdo = conectar();
+    $departamento = buscar_departamento_por_id($id, $pdo);
+
+    if (!$departamento) {
+        return volver_departamentos();
+    }
+
+    extract($departamento);
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $codigo = obtener_post('codigo');
@@ -19,19 +31,20 @@
         if (isset($codigo, $denominacion, $localidad)) {
             // Validar datos de entrada
             $errores = [];
-            $pdo = conectar();
-            comprobar_codigo($codigo, $errores, $pdo);
+            comprobar_codigo($codigo, $errores, $pdo, $id);
             comprobar_denominacion($denominacion, $errores);
             comprobar_localidad($localidad, $errores);
-            // Hacer la inserción
             if (empty($errores)) {
-                // Insertar
-                $sent = $pdo->prepare('INSERT INTO departamentos (codigo, denominacion, localidad)
-                                       VALUES (:codigo, :denominacion, :localidad)');
+                $sent = $pdo->prepare('UPDATE departamentos
+                                          SET codigo = :codigo,
+                                              denominacion = :denominacion,
+                                              localidad = :localidad
+                                        WHERE id = :id');
                 $sent->execute([
                     ':codigo' => $codigo,
                     ':denominacion' => $denominacion,
                     ':localidad' => $localidad,
+                    ':id' => $id,
                 ]);
                 // Volver
                 return volver_departamentos();
@@ -56,7 +69,7 @@
         <label for="localidad">Localidad</label>
         <input type="text" name="localidad" id="localidad"
                value="<?= $localidad ?>"><br>
-        <button type="submit">Insertar</button>
+        <button type="submit">Modificar</button>
         <a href="departamentos.php">Cancelar</a>
     </form>
 </body>

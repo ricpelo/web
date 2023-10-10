@@ -16,7 +16,7 @@
             <th>Código</th>
             <th>Denominación</th>
             <th>Localidad</th>
-            <th>Acciones</th>
+            <th colspan="2">Acciones</th>
         </thead>
         <tbody>
             <?php foreach ($sent as $fila): ?>
@@ -25,6 +25,7 @@
                     <td><?= $fila['denominacion'] ?></td>
                     <td><?= $fila['localidad'] ?></td>
                     <td><a href="borrar.php?id=<?= $fila['id'] ?>">Borrar</a></td>
+                    <td><a href="modificar.php?id=<?= $fila['id'] ?>">Modificar</a></td>
                 </tr>
             <?php endforeach ?>
         </tbody>
@@ -61,7 +62,7 @@
     <br>
     <?php
     if ($codigo == '') {
-        $sent = $pdo->query('SELECT * FROM departamentos');
+        $sent = $pdo->query('SELECT * FROM departamentos ORDER BY codigo');
         mostrar_tabla($sent);
     } else {
         if (cuantos_departamentos($codigo, $pdo) == 0) {
