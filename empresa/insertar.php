@@ -19,13 +19,13 @@
         if (isset($codigo, $denominacion, $localidad)) {
             // Validar datos de entrada
             $errores = [];
-            comprobar_codigo($codigo, $errores);
+            $pdo = conectar();
+            comprobar_codigo($codigo, $errores, $pdo);
             comprobar_denominacion($denominacion, $errores);
             comprobar_localidad($localidad, $errores);
             // Hacer la inserción
             if (empty($errores)) {
                 // Insertar
-                $pdo = conectar();
                 $sent = $pdo->prepare('INSERT INTO departamentos (codigo, denominacion, localidad)
                                        VALUES (:codigo, :denominacion, :localidad)');
                 $sent->execute([

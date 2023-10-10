@@ -16,6 +16,17 @@ function buscar_departamento_por_id($id, ?PDO $pdo = null)
     return $sent->fetch();
 }
 
+function buscar_departamento_por_codigo($codigo, ?PDO $pdo = null)
+{
+    if ($pdo === null) {
+        $pdo = conectar();
+    }
+
+    $sent = $pdo->prepare('SELECT * FROM departamentos WHERE codigo = :codigo');
+    $sent->execute([':codigo' => $codigo]);
+    return $sent->fetch();
+}
+
 function volver_departamentos()
 {
     header('Location: departamentos.php');
@@ -26,7 +37,7 @@ function obtener_post(string $par): ?string
     return isset($_POST[$par]) ? trim($_POST[$par]) : null;
 }
 
-function comprobar_codigo($codigo, &$errores)
+function comprobar_codigo($codigo, &$errores, ?PDO $pdo = null)
 {
     if ($codigo == '') {
         $errores[] = 'El código no puede ser vacío';
@@ -39,13 +50,7 @@ function comprobar_codigo($codigo, &$errores)
         $errores[] = 'El código tiene un formato incorrecto';
     }
     if (empty($errores)) {
-        $pdo = conectar();
-        $sent = $pdo->prepare('SELECT COUNT(*)
-                                 FROM departamentos
-                                WHERE codigo = :codigo');
-        $sent->execute([':codigo' => $codigo]);
-        $cantidad = $sent->fetchColumn();
-        if ($cantidad > 0) {
+        if (buscar_departamento_por_codigo($codigo, $pdo)) {
             $errores[] = 'Ya existe un departamento con ese código';
         }
     }
