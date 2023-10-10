@@ -32,10 +32,39 @@ function comprobar_codigo($codigo, &$errores)
         $errores[] = 'El código no puede ser vacío';
         return;
     }
-    if (mb_strlen($codigo > 2)) {
+    if (mb_strlen($codigo) > 2) {
         $errores[] = 'El código es demasiado largo';
     }
     if (!ctype_digit($codigo)) {
         $errores[] = 'El código tiene un formato incorrecto';
+    }
+    if (empty($errores)) {
+        $pdo = conectar();
+        $sent = $pdo->prepare('SELECT COUNT(*)
+                                 FROM departamentos
+                                WHERE codigo = :codigo');
+        $sent->execute([':codigo' => $codigo]);
+        $cantidad = $sent->fetchColumn();
+        if ($cantidad > 0) {
+            $errores[] = 'Ya existe un departamento con ese código';
+        }
+    }
+}
+
+function comprobar_denominacion($denominacion, &$errores)
+{
+    if ($denominacion == '') {
+        $errores[] = 'La denominación no puede ser vacía';
+        return;
+    }
+    if (mb_strlen($denominacion) > 255) {
+        $errores[] = 'La denominación es demasiado larga';
+    }
+}
+
+function comprobar_localidad($localidad, &$errores)
+{
+    if (mb_strlen($localidad) > 255) {
+        $errores[] = 'La localidad es demasiado larga';
     }
 }

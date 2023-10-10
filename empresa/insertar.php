@@ -9,6 +9,8 @@
     <?php
     require 'auxiliar.php';
 
+    $codigo = $denominacion = $localidad = null;
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $codigo = obtener_post('codigo');
         $denominacion = obtener_post('denominacion');
@@ -16,17 +18,44 @@
 
         if (isset($codigo, $denominacion, $localidad)) {
             // Validar datos de entrada
+            $errores = [];
+            comprobar_codigo($codigo, $errores);
+            comprobar_denominacion($denominacion, $errores);
+            comprobar_localidad($localidad, $errores);
             // Hacer la inserción
+            if (empty($errores)) {
+                // Insertar
+                $pdo = conectar();
+                $sent = $pdo->prepare('INSERT INTO departamentos (codigo, denominacion, localidad)
+                                       VALUES (:codigo, :denominacion, :localidad)');
+                $sent->execute([
+                    ':codigo' => $codigo,
+                    ':denominacion' => $denominacion,
+                    ':localidad' => $localidad,
+                ]);
+                // Volver
+                return volver_departamentos();
+            }
         }
     }
     ?>
+    <?php if (!empty($errores)): ?>
+        <ul>
+        <?php foreach ($errores as $error): ?>
+            <li><?= $error ?></li>
+        <?php endforeach ?>
+        </ul>
+    <?php endif ?>
     <form action="" method="post">
         <label for="codigo">Código</label>
-        <input type="text" name="codigo" id="codigo"><br>
+        <input type="text" name="codigo" id="codigo"
+               value="<?= $codigo ?>"><br>
         <label for="denominacion">Denominación</label>
-        <input type="text" name="denominacion" id="denominacion"><br>
+        <input type="text" name="denominacion" id="denominacion"
+               value="<?= $denominacion?>"><br>
         <label for="localidad">Localidad</label>
-        <input type="text" name="localidad" id="localidad"><br>
+        <input type="text" name="localidad" id="localidad"
+               value="<?= $localidad ?>"><br>
         <button type="submit">Insertar</button>
     </form>
 </body>
