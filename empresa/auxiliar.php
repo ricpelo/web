@@ -70,9 +70,13 @@ function comprobar_denominacion($denominacion, &$errores)
     }
 }
 
-function comprobar_localidad($localidad, &$errores)
+function comprobar_localidad(&$localidad, &$errores)
 {
     if (mb_strlen($localidad) > 255) {
         $errores[] = 'La localidad es demasiado larga';
+    }
+
+    if ($localidad == '') {
+        $localidad = null;
     }
 }
