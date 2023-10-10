@@ -10,7 +10,7 @@
     require 'auxiliar.php';
 
     if (isset($_POST['id'])) {
-        $id = trim(isset($_POST['id']));
+        $id = trim($_POST['id']);
         if (!ctype_digit($id)) {
             return volver_departamentos();
         }
@@ -20,7 +20,6 @@
         $pdo->beginTransaction();
         $sent = $pdo->prepare('SELECT * FROM departamentos WHERE id = :id FOR UPDATE');
         $sent->execute([':id' => $id]);
-
         if (buscar_departamento_por_id($id, $pdo) === false) {
             return volver_departamentos();
         }
@@ -32,7 +31,9 @@
 
         volver_departamentos();
     }
-    $id = isset($_GET['id']) ? trim($_GET['id']) : null;
+    if (isset($_GET['id'])) {
+        $id = trim($_GET['id']);
+    }
 
     if (!isset($id)) {
         header('Location: departamentos.php');
