@@ -7,7 +7,7 @@
 </head>
 <body>
     <?php
-    require 'auxiliar.php';
+    require '../auxiliar.php';
 
     if (!isset($_GET['id'])) {
         return volver_departamentos();
@@ -70,7 +70,7 @@
         <input type="text" name="localidad" id="localidad"
                value="<?= $localidad ?>"><br>
         <button type="submit">Modificar</button>
-        <a href="departamentos.php">Cancelar</a>
+        <a href="/departamentos/index.php">Cancelar</a>
     </form>
 </body>
 </html>

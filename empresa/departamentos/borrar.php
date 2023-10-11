@@ -7,7 +7,7 @@
 </head>
 <body>
     <?php
-    require 'auxiliar.php';
+    require '../auxiliar.php';
 
     if (isset($_POST['id'])) {
         $id = trim($_POST['id']);
@@ -36,15 +36,14 @@
     }
 
     if (!isset($id)) {
-        header('Location: departamentos.php');
-        return;
+        return volver_departamentos();
     }
     ?>
     <p>¿Está seguro de que quiere borrar ese departamento?</p>
     <form action="" method="post">
         <input type="hidden" name="id" value="<?= $id ?>">
         <button type="submit">Sí</button>
-        <a href="departamentos.php">Volver</a>
+        <a href="/departamentos/index.php">Volver</a>
     </form>
 </body>
 </html>

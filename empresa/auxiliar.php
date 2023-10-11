@@ -29,7 +29,7 @@ function buscar_departamento_por_codigo($codigo, ?PDO $pdo = null)
 
 function volver_departamentos()
 {
-    header('Location: departamentos.php');
+    header('Location: /departamentos/index.php');
 }
 
 function obtener_post(string $par): ?string

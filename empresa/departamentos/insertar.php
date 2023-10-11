@@ -7,7 +7,7 @@
 </head>
 <body>
     <?php
-    require 'auxiliar.php';
+    require '../auxiliar.php';
 
     $codigo = $denominacion = $localidad = null;
 
@@ -57,7 +57,7 @@
         <input type="text" name="localidad" id="localidad"
                value="<?= $localidad ?>"><br>
         <button type="submit">Insertar</button>
-        <a href="departamentos.php">Cancelar</a>
+        <a href="/departamentos/index.php">Cancelar</a>
     </form>
 </body>
 </html>

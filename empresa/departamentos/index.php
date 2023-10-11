@@ -7,7 +7,7 @@
 </head>
 <body>
     <?php
-    require 'auxiliar.php';
+    require '../auxiliar.php';
 
     function mostrar_tabla(PDOStatement $sent)
     { ?>
