@@ -32,6 +32,11 @@ function volver_departamentos()
     header('Location: /departamentos/index.php');
 }
 
+function volver_empleados()
+{
+    header('Location: /empleados/index.php');
+}
+
 function obtener_post(string $par): ?string
 {
     return isset($_POST[$par]) ? trim($_POST[$par]) : null;
