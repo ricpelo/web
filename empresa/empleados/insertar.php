@@ -14,7 +14,9 @@
         'nombre' => null,
         'apellidos' => null,
         'salario' => null,
-        'fecha_alta' => null,
+        'dia' => null,
+        'mes' => null,
+        'anyo' => null,
         'departamento_id' => null,
     ];
 
@@ -40,12 +42,20 @@
             // Hacer la inserción
             if (empty($errores)) {
                 // Insertar
-                $columnas = implode(', ', array_keys(PARS));
-                $marcadores = ':' . implode(', :', array_keys(PARS));
+                $pars = PARS;
+                $fecha_alta = $pars['fecha_alta'] = "$anyo-$mes-$dia";
+                unset($pars['dia']);
+                unset($pars['mes']);
+                unset($pars['anyo']);
+
+                $columnas = implode(', ', array_keys($pars));
+                $marcadores = ':' . implode(', :', array_keys($pars));
+                var_dump($columnas);
+                var_dump($marcadores);
                 $sent = $pdo->prepare("INSERT INTO empleados ($columnas)
                                        VALUES ($marcadores)");
                 $execute = [];
-                foreach (PARS as $par => $valor) {
+                foreach ($pars as $par => $valor) {
                     $execute[$par] = $$par;
                 }
                 $sent->execute($execute);
@@ -81,8 +91,12 @@
         <input type="text" name="salario" id="salario"
                value="<?= $salario ?>"><br>
         <label for="fecha_alta">Fecha de alta</label>
-        <input type="text" name="fecha_alta" id="fecha_alta"
-               value="<?= $fecha_alta?>"><br>
+        <input type="text" name="dia" id="dia"
+               value="<?= $dia?>">
+        <input type="text" name="mes" id="mes"
+               value="<?= $mes?>">
+        <input type="text" name="anyo" id="anyo"
+               value="<?= $anyo?>"><br>
         <label for="departamento_id">Departamento</label>
         <select name="departamento_id" id="departamento_id">
             <?php foreach ($sent as $departamento): ?>
