@@ -9,24 +9,29 @@
     <?php
     require '../auxiliar.php';
 
-    $numero          = null;
-    $nombre          = null;
-    $apellidos       = null;
-    $salario         = null;
-    $fecha_alta      = null;
-    $departamento_id = null;
+    const PARS = [
+        'numero' => null,
+        'nombre' => null,
+        'apellidos' => null,
+        'salario' => null,
+        'fecha_alta' => null,
+        'departamento_id' => null,
+    ];
+
+    extract(PARS);
 
     $pdo = conectar();
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $numero          = obtener_post('numero');
-        $nombre          = obtener_post('nombre');
-        $apellidos       = obtener_post('apellidos');
-        $salario         = obtener_post('salario');
-        $fecha_alta      = obtener_post('fecha_alta');
-        $departamento_id = obtener_post('departamento_id');
+        $isset = true;
+        foreach (PARS as $par => $valor) {
+            $$par = obtener_post($par);
+            if ($$par === null) {
+                $isset = false;
+            }
+        }
 
-        if (isset($numero, $nombre, $apellidos, $salario, $fecha_alta, $departamento_id)) {
+        if ($isset) {
             // Validar datos de entrada
             $errores = [];
             // comprobar_codigo($codigo, $errores, $pdo);
@@ -35,16 +40,15 @@
             // Hacer la inserción
             if (empty($errores)) {
                 // Insertar
-                $sent = $pdo->prepare('INSERT INTO empleados (numero, nombre, apellidos, salario, fecha_alta, departamento_id)
-                                       VALUES (:numero, :nombre, :apellidos, :salario, :fecha_alta, :departamento_id)');
-                $sent->execute([
-                    'numero' => $numero,
-                    'nombre' => $nombre,
-                    'apellidos' => $apellidos,
-                    'salario' => $salario,
-                    'fecha_alta' => $fecha_alta,
-                    'departamento_id' => $departamento_id,
-                ]);
+                $columnas = implode(', ', array_keys(PARS));
+                $marcadores = ':' . implode(', :', array_keys(PARS));
+                $sent = $pdo->prepare("INSERT INTO empleados ($columnas)
+                                       VALUES ($marcadores)");
+                $execute = [];
+                foreach (PARS as $par => $valor) {
+                    $execute[$par] = $$par;
+                }
+                $sent->execute($execute);
                 // Volver
                 return volver_empleados();
             }
