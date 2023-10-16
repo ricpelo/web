@@ -24,6 +24,15 @@
             return volver_departamentos();
         }
 
+        $sent = $pdo->prepare('SELECT COUNT(*)
+                                 FROM empleados
+                                WHERE departamento_id = :departamento_id');
+        $sent->execute([':departamento_id' => $id]);
+
+        if ($sent->fetchColumn() != 0) {
+            return volver_departamentos();
+        }
+
         $sent = $pdo->prepare('DELETE FROM departamentos WHERE id = :id');
         $sent->execute([':id' => $id]);
 
