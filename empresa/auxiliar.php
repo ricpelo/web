@@ -85,3 +85,23 @@ function comprobar_localidad(&$localidad, &$errores)
         $localidad = null;
     }
 }
+
+function cabecera()
+{ ?>
+    <p align="right">
+        <a href="/empleados/">Empleados</a>
+        <a href="/departamentos/">Departamentos</a>
+    </p>
+
+    <hr>
+    <?php
+}
+
+function hh($cadena)
+{
+    if ($cadena === null) {
+        return null;
+    }
+
+    return htmlspecialchars($cadena, ENT_QUOTES | ENT_SUBSTITUTE);
+}

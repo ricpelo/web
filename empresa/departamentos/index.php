@@ -12,28 +12,28 @@
     function mostrar_tabla(PDOStatement $sent)
     { ?>
         <table border="1">
-        <thead>
-            <th>Código</th>
-            <th>Denominación</th>
-            <th>Localidad</th>
-            <th colspan="2">Acciones</th>
-        </thead>
-        <tbody>
-            <?php foreach ($sent as $fila): ?>
-                <tr>
-                    <td><?= $fila['codigo'] ?></td>
-                    <td><?= $fila['denominacion'] ?></td>
-                    <td><?= $fila['localidad'] ?></td>
-                    <td><a href="borrar.php?id=<?= $fila['id'] ?>">Borrar</a></td>
-                    <td><a href="modificar.php?id=<?= $fila['id'] ?>">Modificar</a></td>
-                </tr>
-            <?php endforeach ?>
-        </tbody>
-    </table>
+            <thead>
+                <th>Código</th>
+                <th>Denominación</th>
+                <th>Localidad</th>
+                <th colspan="2">Acciones</th>
+            </thead>
+            <tbody>
+                <?php foreach ($sent as $fila): ?>
+                    <tr>
+                        <td><?= hh($fila['codigo']) ?></td>
+                        <td><?= hh($fila['denominacion']) ?></td>
+                        <td><?= hh($fila['localidad']) ?></td>
+                        <td><a href="borrar.php?id=<?= $fila['id'] ?>">Borrar</a></td>
+                        <td><a href="modificar.php?id=<?= $fila['id'] ?>">Modificar</a></td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
 
-    <a href="insertar.php">Insertar un nuevo departamento</a>
+        <a href="insertar.php">Insertar un nuevo departamento</a>
 
-    <?php
+        <?php
     }
 
     function mostrar_error_departamento_no_existe()
@@ -53,7 +53,10 @@
 
     $pdo = conectar();
     $codigo = isset($_GET['codigo']) ? trim($_GET['codigo']) : '';
+
+    cabecera();
     ?>
+
     <form action="" method="get">
         <label for="codigo">Código:</label>
         <input type="text" name="codigo" id="codigo" value="<?= $codigo ?>">

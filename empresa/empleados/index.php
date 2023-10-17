@@ -67,6 +67,8 @@
 
     $pdo = conectar();
     $numero = isset($_GET['numero']) ? trim($_GET['numero']) : '';
+
+    cabecera();
     ?>
     <form action="" method="get">
         <label for="numero">Número:</label>

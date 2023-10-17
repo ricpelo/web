@@ -38,8 +38,9 @@
 
         $pdo->commit();
 
-        volver_departamentos();
+        return volver_departamentos();
     }
+
     if (isset($_GET['id'])) {
         $id = trim($_GET['id']);
     }
@@ -47,6 +48,8 @@
     if (!isset($id)) {
         return volver_departamentos();
     }
+
+    cabecera();
     ?>
     <p>¿Está seguro de que quiere borrar ese departamento?</p>
     <form action="" method="post">
