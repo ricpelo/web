@@ -49,13 +49,13 @@
     <form action="" method="post">
         <label for="codigo">Código</label>
         <input type="text" name="codigo" id="codigo"
-               value="<?= $codigo ?>"><br>
+               value="<?= hh($codigo) ?>"><br>
         <label for="denominacion">Denominación</label>
         <input type="text" name="denominacion" id="denominacion"
-               value="<?= $denominacion?>"><br>
+               value="<?= hh($denominacion) ?>"><br>
         <label for="localidad">Localidad</label>
         <input type="text" name="localidad" id="localidad"
-               value="<?= $localidad ?>"><br>
+               value="<?= hh($localidad) ?>"><br>
         <button type="submit">Insertar</button>
         <a href="/departamentos/index.php">Cancelar</a>
     </form>

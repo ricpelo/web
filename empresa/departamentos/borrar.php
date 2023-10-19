@@ -15,6 +15,10 @@
             return volver_departamentos();
         }
 
+        if (!validar_csrf()) {
+            return volver_departamentos();
+        }
+
         $pdo = conectar();
 
         $pdo->beginTransaction();
@@ -54,6 +58,7 @@
     <p>¿Está seguro de que quiere borrar ese departamento?</p>
     <form action="" method="post">
         <input type="hidden" name="id" value="<?= $id ?>">
+        <?php campo_csrf() ?>
         <button type="submit">Sí</button>
         <a href="/departamentos/index.php">Volver</a>
     </form>
