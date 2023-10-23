@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,6 +56,16 @@
     $codigo = isset($_GET['codigo']) ? trim($_GET['codigo']) : '';
 
     cabecera();
+
+    if (isset($_SESSION['error'])) {
+        echo $_SESSION['error'];
+        unset($_SESSION['error']);
+    }
+
+    if (isset($_SESSION['exito'])) {
+        echo $_SESSION['exito'];
+        unset($_SESSION['exito']);
+    }
     ?>
 
     <form action="" method="get">

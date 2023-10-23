@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +35,7 @@
         $sent->execute([':departamento_id' => $id]);
 
         if ($sent->fetchColumn() != 0) {
+            $_SESSION['error'] = 'El departamento tiene empleados';
             return volver_departamentos();
         }
 
@@ -42,6 +44,7 @@
 
         $pdo->commit();
 
+        $_SESSION['exito'] = 'El departamento se ha borrado correctamente';
         return volver_departamentos();
     }
 
