@@ -91,6 +91,14 @@ function cabecera()
     <p align="right">
         <a href="/empleados/">Empleados</a>
         <a href="/departamentos/">Departamentos</a>
+        <?php if (isset($_SESSION['login'])): ?>
+            <?= $_SESSION['login'] ?>
+            <form action="/usuarios/logout.php" method="post">
+                <button type="submit">Logout</button>
+            </form>
+        <?php else: ?>
+            <a href="/usuarios/login.php">Login</a>
+        <?php endif ?>
     </p>
 
     <hr>
