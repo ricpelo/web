@@ -154,3 +154,15 @@ function validar_csrf()
 
     return true;
 }
+
+function usuario_esta_logueado()
+{
+    return isset($_SESSION['login']);
+}
+
+function comprobar_si_logueado()
+{
+    if (!usuario_esta_logueado()) {
+        header('Location: /usuarios/login.php');
+    }
+}

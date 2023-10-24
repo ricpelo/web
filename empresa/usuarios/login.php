@@ -25,7 +25,7 @@
             $hash = $fila['password'];
             if (password_verify($password, $hash)) {
                 $_SESSION['login'] = $email;
-                return volver_departamentos();
+                return volver_empleados();
             }
         }
 

@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,6 +65,8 @@
         $sent->execute([':numero' => $numero]);
         return $sent->fetchColumn();
     }
+
+    comprobar_si_logueado();
 
     $pdo = conectar();
     $numero = isset($_GET['numero']) ? trim($_GET['numero']) : '';
