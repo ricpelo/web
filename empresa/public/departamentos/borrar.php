@@ -8,7 +8,7 @@
 </head>
 <body>
     <?php
-    require '../auxiliar.php';
+    require '../../src/auxiliar.php';
 
     if (isset($_POST['id'])) {
         $id = trim($_POST['id']);
