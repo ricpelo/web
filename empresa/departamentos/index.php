@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/dist/output.css" rel="stylesheet">
     <title>Departamentos</title>
 </head>
 <body>
@@ -68,6 +69,14 @@
     }
     ?>
 
+    <h1 class="text-3xl font-bold underline">
+        Hello world!
+    </h1>
+
+    <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
+        <span class="font-medium">Info alert!</span> Change a few things up and try submitting again.
+    </div>
+
     <form action="" method="get">
         <label for="codigo">Código:</label>
         <input type="text" name="codigo" id="codigo" value="<?= $codigo ?>">
@@ -90,5 +99,6 @@
         }
     }
     ?>
+    <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
 </body>
 </html>
