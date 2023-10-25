@@ -68,6 +68,12 @@
 
     comprobar_si_logueado();
 
+    if ($_SESSION['login'] != 'pepe@gmail.com') {
+        $_SESSION['error'] = 'Acceso no autorizado';
+        header('Location: /departamentos/');
+        return;
+    }
+
     $pdo = conectar();
     $numero = isset($_GET['numero']) ? trim($_GET['numero']) : '';
 
