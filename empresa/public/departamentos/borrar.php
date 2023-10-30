@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/output.css" rel="stylesheet">
     <title>Borrar departamento</title>
 </head>
 <body>
@@ -56,7 +57,7 @@
         return volver_departamentos();
     }
 
-    cabecera();
+    require '../../src/_cabecera.php';
     ?>
     <p>¿Está seguro de que quiere borrar ese departamento?</p>
     <form action="" method="post">
@@ -65,5 +66,6 @@
         <button type="submit">Sí</button>
         <a href="/departamentos/index.php">Volver</a>
     </form>
+    <script src="/js/flowbite/flowbite.min.js"></script>
 </body>
 </html>

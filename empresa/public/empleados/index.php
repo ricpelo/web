@@ -8,7 +8,7 @@
 </head>
 <body>
     <?php
-    require '../auxiliar.php';
+    require '../../src/auxiliar.php';
 
     function mostrar_tabla(PDOStatement $sent)
     { ?>
@@ -77,7 +77,7 @@
     $pdo = conectar();
     $numero = isset($_GET['numero']) ? trim($_GET['numero']) : '';
 
-    cabecera();
+    require '../../src/_cabecera.php';
     ?>
     <form action="" method="get">
         <label for="numero">Número:</label>
